@@ -1,0 +1,88 @@
+* {
+    font-family: Lexend Deca, sans-serif;
+}
+
+body {
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.barra {
+    width: 90%;
+    background-color: lightgray;
+    border-radius: 1000px;
+    margin: auto;
+    padding: 10px;
+}
+
+.frutas {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 85%;
+    margin: auto;
+}
+
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    width: 80%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    flex: 1;
+    border-radius: 20px;
+    align-items: center;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.324);
+}
+
+.botones {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px;
+    border-radius: 1000px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.btn.eliminar {
+    background-color: black;
+    color: white;
+}
+
+.card h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.card p:last-child {
+    margin-bottom: 0;
+}
+
+#map {
+    height: 180px;
+}

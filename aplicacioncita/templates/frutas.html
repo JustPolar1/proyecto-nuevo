@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce</title>
+            <!--Fuente lexend deca-->
+            <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+</head>
+<body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <div class="barra">
+        <h1>Frutería Rivas</h1>
+    </div>
+    <section class="frutas">
+        {% for fruta in frutas %}
+        <div class="card">
+            <li id="{{ fruta.id }}">
+                <h2>{{ fruta.nombre }}</h2>
+                <p>{{fruta.distribuidora}}</p>
+                <p>${{fruta.precio}}</p>
+            </li>
+            <hr>
+            <div class="botones">
+                <form method="POST" action="{% url 'eliminar_fruta' fruta.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn eliminar">Eliminar</button>
+                </form>
+                <form method="GET" action="{% url 'modificar_fruta' fruta.id %}">
+                    <button type="submit" class="btn">Modificar</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    <div id=map></div>
+
+    <script>
+        var map = L.map('map').setView([28.6412257,-106.1488653], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([28.6412257,-106.1488653]).addTo(map)
+            .bindPopup('UTCH, hogar de la frutería')
+            .openPopup();
+    </script>
+</body>
+</html>
