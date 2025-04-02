@@ -31,4 +31,6 @@ urlpatterns = [
     path('fruteria', views.fruta_form),
     path('frutas/eliminar/<int:fruta_id>/', views.eliminar_fruta, name='eliminar_fruta'),
     path('frutas/modificar/<int:fruta_id>/', views.modificar_fruta, name='modificar_fruta'),
+    path('coordinates/', views.coordinates, name='coordinates'),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

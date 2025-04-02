@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractBaseUser
+from django.db.models import QuerySet
 from django.contrib.auth import authenticate, login, logout
 from aplicacioncita.models import Frutas
 
@@ -21,8 +22,9 @@ def fruta(request: HttpRequest) -> HttpResponse:
             )
         
         fruta.save()
-        
-    frutas: dict[str, str] = Frutas.objects.all()
+    
+    # Lectura de datos
+    frutas: QuerySet[Frutas, Frutas] = Frutas.objects.all()
     return render(request, 'frutas.html', {'frutas': frutas})
 
 def eliminar_fruta(request: HttpRequest, fruta_id: int) -> HttpResponse:
@@ -45,7 +47,7 @@ def form(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         username= request.POST['username']
         pswd: str = request.POST['password']
-        user: User | None = authenticate(request, username=username, password=pswd)
+        user: AbstractBaseUser | None = authenticate(request, username=username, password=pswd)
         if username is not None:
             login(request, user)
             return HttpResponse("Usuario autenticado")
@@ -65,7 +67,7 @@ def authentication(request: HttpRequest):
     username: str | None = request.POST.get('username')
     password: str | None = request.POST.get('password')
     if username and password:
-        u: User | None = authenticate(request, username=username, password=password)
+        u: AbstractBaseUser | None = authenticate(request, username=username, password=password)
     else:   
         u = authenticate(request, username='Avrilsita', password='Avrilsita123')
     if u:
@@ -76,3 +78,8 @@ def authentication(request: HttpRequest):
 def logout_view(request):
     logout(request)
     return HttpResponse("Usuario deslogueado!")
+
+def coordinates(request: HttpRequest) -> HttpResponse:
+    latitud = request.GET.get('latitud', '28.6412257')
+    longitud = request.GET.get('longitud', '-106.1488653')
+    return render(request, 'mapa.html', {'latitud': latitud, 'longitud': longitud})
