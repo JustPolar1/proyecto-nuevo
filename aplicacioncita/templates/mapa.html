@@ -12,6 +12,7 @@
     crossorigin=""/>
 </head>
 <body>
+    <!--Formulario para agregar coordenadas-->
     <h1>Escribe tus coordenadas:</h1>
     <form action="{% url 'coordinates' %}" method="get">
         <input type="text" id="latitud" name="latitud" placeholder="Latitud">
@@ -19,10 +20,15 @@
         <button type="submit">Enviar</button>
     </form>
     <div id="map"></div>
+
+    <!--Agregamos lo necesario para agregar mapas de Leaflet.js-->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
     <script>
+        // El IDE no reconoce las variables de Django, pero en el navegador sí estarán definidas
+        // y se pueden usar directamente en el código JavaScript.
+        // Se asume que las variables latitud y longitud están definidas en el contexto de la plantilla
         var map = L.map('map').setView([{{ latitud }}, {{ longitud }}], 13);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

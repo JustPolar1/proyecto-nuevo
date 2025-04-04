@@ -20,6 +20,7 @@
         <h1>Frutería Rivas</h1>
     </div>
     <section class="frutas">
+        <!--Se utiliza django templates para iterar sobre la lista de frutas dada por el contexto de la vista-->
         {% for fruta in frutas %}
         <div class="card">
             <li id="{{ fruta.id }}">
